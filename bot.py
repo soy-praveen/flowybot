@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import os
+from keep_alive import keep_alive
 
 # Get token from environment variable
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -42,6 +43,9 @@ async def load_cogs():
             print(f'❌ Failed to load {cog}: {e}')
 
 async def main():
+    # Start Flask web server for UptimeRobot
+    keep_alive()
+    
     async with bot:
         await load_cogs()
         await bot.start(TOKEN)
